@@ -55,6 +55,23 @@ int TrouverLignePivot(double tab,double Pivot)
 //const int lignePivot = TrouverLignePivot(tab,Pivot);
 
 
+void adapterLigne(double tab, int colonnePivot, int lignePivot)
+{
+    for(int i = 0;i<tailleY;i++)
+    {
+        if(i!=lignePivot)
+        {
+            double x = tab[i][colonnePivot];
+            for(int j = 0;j<tailleX;j++)
+            {
+                tab[i][j]=tab[i][j]-(x*tab[lignePivot][j]);
+            }
+        }
+    }
+    return tab;
+}
+
+
 /*BDD MySQL :
  *      -Utilisateur (Username, Password, Email, Grade)
  *      -Envoi (NbProduits, NbComposants, Resultat)
