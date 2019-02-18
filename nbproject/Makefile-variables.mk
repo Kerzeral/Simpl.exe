@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=MinGW-Windows
 CND_ARTIFACT_DIR_Debug=dist/Debug/MinGW-Windows
-CND_ARTIFACT_NAME_Debug=simplexe
-CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/simplexe
+CND_ARTIFACT_NAME_Debug=simpl.exe-master
+CND_ARTIFACT_PATH_Debug=dist/Debug/MinGW-Windows/simpl.exe-master
 CND_PACKAGE_DIR_Debug=dist/Debug/MinGW-Windows/package
-CND_PACKAGE_NAME_Debug=simplexe.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/simplexe.tar
+CND_PACKAGE_NAME_Debug=simpl.exe-master.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/MinGW-Windows/package/simpl.exe-master.tar
 # Release configuration
 CND_PLATFORM_Release=MinGW-Windows
 CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
-CND_ARTIFACT_NAME_Release=simplexe
-CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/simplexe
+CND_ARTIFACT_NAME_Release=simpl.exe-master
+CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/simpl.exe-master
 CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
-CND_PACKAGE_NAME_Release=simplexe.tar
-CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/simplexe.tar
+CND_PACKAGE_NAME_Release=simpl.exe-master.tar
+CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/simpl.exe-master.tar
 #
 # include compiler specific variables
 #
