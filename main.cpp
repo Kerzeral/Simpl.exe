@@ -7,6 +7,19 @@ using namespace std;
 const int tailleX = 4; // = Nombre de composants différents nécessaires.
 const int tailleY = 6; // = Nombre de produits à prendre en compte + les e + les stocks.
 
+void Affiche(double *tab)
+{
+    for(int i=0;i<tailleX;i++)
+    {
+    for(int j=0;j<tailleY;j++)
+    {
+     cout<<*(tab+i*tailleY+j)<<" ";
+    }
+    cout<<endl;
+    }
+    cout<<endl;
+}
+
 double RetourneTableau()
 {
     double *tab = new double[tailleX*tailleY];
@@ -27,7 +40,7 @@ double RetourneTableau()
                     cout<<"Entrez le stock de composant "<<i+1<<endl;
                     cin>>*(tab+i*tailleY+j);
                 }
-                if(j==a)
+                else if(j==a)
                 {
                     *(tab+i*tailleY+j)=1;
                 }
@@ -48,8 +61,11 @@ double RetourneTableau()
         }  
         a++;
     }
+     Affiche(tab);
     return (*tab);
 }
+
+
 
 
 int TrouverColonnePivot(double *tab,double Pivot)
