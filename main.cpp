@@ -1,71 +1,88 @@
 #include <cstdlib>
+#include <iostream>
+//#include "AdapterLigne.cpp"
 
 using namespace std;
 
+const int tailleX = 3; // = Nombre de composants différents nécessaires.
+const int tailleY = 2; // = Nombre de produits à prendre en compte.
 
-/*
-                                                _______
-                                          .,add88YYYYY88ba,
-                                     .,adPP""'         `"Yba___,aaadYPPba,
-                                 .,adP""                .adP""""'     .,Y8b
-                              ,adP"'                __  d"'     .,ad8P""Y8I
-                           ,adP"'                  d88b I  .,adP""'   ,d8I'
-                         ,adP"                     Y8P" ,adP"'    .,adP"'
-                        adP"                        "' dP"     ,adP""'
-                     ,adP"                             P    ,adP"'
-             .,,aaaad8P"                                 ,adP"
-        ,add88PP""""'                                  ,dP"
-     ,adP""'                                         ,dP"
-   ,8P"'                                            d8"
- ,dP'                                              dP'
- `"Yba                                             Y8
-   `"Yba                                           `8,
-     `"Yba,                                         8I
-        `"8b                                        8I
-          dP                              __       ,8I
-         ,8'                            ,d88b,    ,d8'
-         dP                           ,dP'  `Yb, ,d8'
-        ,8'                         ,dP"      `"Y8P'
-        dP                        ,8P"
-       ,8'                      ,dP"    
-       dP                     ,dP"      
-      ,8'                    ,8P'
-      I8                    dP"
-      IP                   dP'
-      dI                  dP'
-     ,8'                 dP'
-     dI                 dP'
-     8'                ,8'
-     8                ,8I
-     8                dP'
-     8               ,8'
-     8,              IP'
-     Ib             ,dI
-     `8             I8'
-      8,            8I
-      Yb            I8
-      `8,           I8
-       Yb           I8
-       `Y,          I8
-        Ib          I8,
-        `Ib         `8I
-         `8,         Yb
-          I8,        `8,
-          `Yb,        `8a
-           `Yb         `Yb,
-            I8          `Yb,
-            dP            `Yb,
-           ,8'              `Yb,
-           dP                 `Yb,
-          d88baaaad88ba,        `8,
-             `"""'   `Y8ba,     ,dI
-                        `""Y8baadP'
-
-*/
-
-int main() 
+double RetourneTableau()
 {
-
-    return 0;
+    double *tab = new double[tailleX*tailleY];
+    for(int i = 0;i<tailleX;i++)
+    {
+        for(int j = 0;j<tailleY;j++)
+        {
+            cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
+        }   
+    }
+    return (*tab);
 }
 
+
+int TrouverColonnePivot(double *tab,double Pivot)
+{
+    for(int i = 0;i<tailleX;i++)
+    {
+        for(int j = 0;j<tailleY;j++)
+        {
+            if(*(tab+i*tailleY+j) = Pivot)
+            {
+                return j;
+            }
+        }
+    }
+}
+
+//const int colonnePivot = TrouverColonnePivot(tab,Pivot);
+
+int TrouverLignePivot(double *tab,double Pivot)
+{
+    for(int i = 0;i<tailleX;i++)
+    {
+        for(int j = 0;j<tailleY;j++)
+        {
+            if(*(tab+i*tailleY+j)= Pivot)
+            {
+                return j;
+            }
+        }
+    }
+}
+ 
+//const int lignePivot = TrouverLignePivot(tab,Pivot);
+
+
+void adapterLigne(double *tab, int colonnePivot, int lignePivot)
+{
+    for(int i = 0;i<tailleX;i++)
+    {
+        if(i!=lignePivot)
+        {
+            double x = *(tab+i*tailleY+colonnePivot);
+            for(int j = 0;j<tailleY;j++)
+            {
+                *(tab+i*tailleY+j)=*(tab+i*tailleY+j)-(x**(tab+lignePivot*tailleY+j));
+            }
+        }
+    }
+}
+
+
+/*BDD MySQL :
+ *      -Utilisateur (Username, Password, Email, Grade)
+ *      -Envoi (NbProduits, NbComposants, Resultat)
+ *      -Produits(NomProduit, PrixProduit, QteChaqueComposant, QteProduitsCrées)
+ *      -Composants (NomComposant, PrixComposant, QteComposantDispo, QteComposantRestants)
+*/
+
+
+
+int main(int argc, char** argv) 
+{
+    double tab = RetourneTableau();
+   
+    
+    return 0;
+}

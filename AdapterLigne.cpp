@@ -4,31 +4,34 @@
  * and open the template in the editor.
  */
 
-const int tailleX = 2; // = Nombre de composants différents nécessaires.
+#include <iostream>
+
+using namespace std;
+
+const int tailleX = 3; // = Nombre de composants différents nécessaires.
 const int tailleY = 2; // = Nombre de produits à prendre en compte.
 
 double RetourneTableau()
 {
-    double tab;
-    tab = new double[tailleX][tailleY];
-    for(int i = 0;i<tailleY;i++)
+    double *tab = new double[tailleX*tailleY];
+    for(int i = 0;i<tailleX;i++)
     {
-        for(int j = 0;j<tailleX;j++)
+        for(int j = 0;j<tailleY;j++)
         {
-            tab[i][j] = 0; // = Qte de composant j pour le produit i.
+            cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
         }   
     }
-    return tab;
+    return (*tab);
 }
 
 
-int TrouverColonnePivot(double tab,double Pivot)
+int TrouverColonnePivot(double *tab,double Pivot)
 {
-    for(int i = 0;i<tailleY;i++)
+    for(int i = 0;i<tailleX;i++)
     {
-        for(int j = 0;j<tailleX;j++)
+        for(int j = 0;j<tailleY;j++)
         {
-            if(tab[i][j] = Pivot)
+            if(*(tab+i*tailleY+j) = Pivot)
             {
                 return j;
             }
@@ -38,13 +41,13 @@ int TrouverColonnePivot(double tab,double Pivot)
 
 //const int colonnePivot = TrouverColonnePivot(tab,Pivot);
 
-int TrouverLignePivot(double tab,double Pivot)
+int TrouverLignePivot(double *tab,double Pivot)
 {
-    for(int i = 0;i<tailleY;i++)
+    for(int i = 0;i<tailleX;i++)
     {
-        for(int j = 0;j<tailleX;j++)
+        for(int j = 0;j<tailleY;j++)
         {
-            if(tab[i][j] = Pivot)
+            if(*(tab+i*tailleY+j)= Pivot)
             {
                 return j;
             }
@@ -55,20 +58,19 @@ int TrouverLignePivot(double tab,double Pivot)
 //const int lignePivot = TrouverLignePivot(tab,Pivot);
 
 
-void adapterLigne(double tab, int colonnePivot, int lignePivot)
+void adapterLigne(double *tab, int colonnePivot, int lignePivot)
 {
-    for(int i = 0;i<tailleY;i++)
+    for(int i = 0;i<tailleX;i++)
     {
         if(i!=lignePivot)
         {
-            double x = tab[i][colonnePivot];
-            for(int j = 0;j<tailleX;j++)
+            double x = *(tab+i*tailleY+colonnePivot);
+            for(int j = 0;j<tailleY;j++)
             {
-                tab[i][j]=tab[i][j]-(x*tab[lignePivot][j]);
+                *(tab+i*tailleY+j)=*(tab+i*tailleY+j)-(x**(tab+lignePivot*tailleY+j));
             }
         }
     }
-    return tab;
 }
 
 
@@ -78,13 +80,6 @@ void adapterLigne(double tab, int colonnePivot, int lignePivot)
  *      -Produits(NomProduit, PrixProduit, QteChaqueComposant, QteProduitsCrées)
  *      -Composants (NomComposant, PrixComposant, QteComposantDispo, QteComposantRestants)
 */
-
-
-
-
-
-
-
 
 
 
