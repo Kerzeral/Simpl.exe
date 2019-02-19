@@ -4,8 +4,8 @@
 
 using namespace std;
 
-const int tailleX = 4; // = Nombre de composants différents nécessaires.
-const int tailleY = 6; // = Nombre de produits à prendre en compte + les e + les stocks.
+const int tailleX = 3; // = Nombre de composants différents nécessaires + 1 (Prix).
+const int tailleY = 5; // = Nombre de produits à prendre en compte + 1 par e + 1 (stocks).
 
 void Affiche(double *tab)
 {
@@ -27,7 +27,7 @@ void RemplirTableau(double *tab)
     {
         for(int j = 0;j<tailleY;j++)
         {
-            if(j<(tailleY/2)-1 && i!=tailleX-1)
+            if(j<(tailleY/2) && i!=tailleX-1)
             {
                 cout<<"Entrez la quantite de composant "<<i+1<<" pour le produit "<<j+1<<endl;
                 cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
@@ -48,7 +48,7 @@ void RemplirTableau(double *tab)
                     *(tab+i*tailleY+j)=0;
                 }
             }
-            else if(i==tailleX-1 && j<(tailleY/2)-1)
+            else if(i==tailleX-1 && j<(tailleY/2))
             {
                 cout<<"Entrez le prix du produit "<<j+1<<endl;
                 cin>>*(tab+i*tailleY+j);
@@ -63,7 +63,7 @@ void RemplirTableau(double *tab)
 }
 
 
-double CoeffMax(double *tab) // Permet de trouver la colonne du pivot 
+int CoeffMax(double *tab) // Permet de trouver la colonne du pivot 
 {
   int i, j;
   int ColonnePivot;
@@ -146,6 +146,7 @@ int main(int argc, char** argv)
     double *tab = new double[tailleX*tailleY];
     RemplirTableau(tab);
     Affiche(tab);
-    
+    int ColonnePivot = CoeffMax(tab);
+    delete tab;
     return 0;
 }
