@@ -5,35 +5,48 @@
 using namespace std;
 
 const int tailleX = 4; // = Nombre de composants différents nécessaires.
-const int tailleY = 3; // = Nombre de produits à prendre en compte.
+const int tailleY = 6; // = Nombre de produits à prendre en compte + les e + les stocks.
 
 double RetourneTableau()
 {
     double *tab = new double[tailleX*tailleY];
+    int a = (tailleY/2)-1;
     for(int i = 0;i<tailleX;i++)
     {
         for(int j = 0;j<tailleY;j++)
         {
-            if(j!=tailleY-1 && i!=tailleX-1)
+            if(j<(tailleY/2)-1 && i!=tailleX-1)
             {
                 cout<<"Entrez la quantite de composant "<<i+1<<" pour le produit "<<j+1<<endl;
                 cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
             }
-            else if(i==tailleX-1 && j!=tailleY-1)
+            else if(j>=(tailleY/2)-1 && i!=tailleX-1)
+            {
+                if(j==tailleY-1)
+                {
+                    cout<<"Entrez le stock de composant "<<i+1<<endl;
+                    cin>>*(tab+i*tailleY+j);
+                }
+                if(j==a)
+                {
+                    *(tab+i*tailleY+j)=1;
+                }
+                else
+                {
+                    *(tab+i*tailleY+j)=0;
+                }
+            }
+            else if(i==tailleX-1 && j<(tailleY/2)-1)
             {
                 cout<<"Entrez le prix du produit "<<j+1<<endl;
                 cin>>*(tab+i*tailleY+j);
             }
-            else if(j==tailleY-1 && i==tailleX-1)
+            else if(j>(tailleY/2)-1 && i==tailleX-1)
             {
                 *(tab+i*tailleY+j)=0;
             }       
-            else
-            {
-                cout<<"Entrez le stock de composant "<<i+1<<endl;
-                cin>>*(tab+i*tailleY+j);
-            }
-        }   
+        }  
+        a++;
     }
     return (*tab);
 }
