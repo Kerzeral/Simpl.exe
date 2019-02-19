@@ -63,9 +63,27 @@ void RemplirTableau(double *tab)
 }
 
 
+double CoeffMax(double *tab) // Permet de trouver la colonne du pivot 
+{
+  int i, j;
+  int ColonnePivot;
+  double Coeff=0;
+  
+  for(i=0; i<tailleX; i++)
+  {
+      for(j=0;i<tailleY; j++)
+      {
+          if(*(tab+i*tailleY+j) > Coeff)
+          {
+             Coeff=*(tab+i*tailleY+j); 
+             ColonnePivot=j;
+          }
+      }
+  }
+   return ColonnePivot; 
+}
 
-
-int TrouverColonnePivot(double *tab,double Pivot)
+/*int TrouverColonnePivot(double *tab,double Pivot)
 {
     for(int i = 0;i<tailleX;i++)
     {
@@ -77,7 +95,7 @@ int TrouverColonnePivot(double *tab,double Pivot)
             }
         }
     }
-}
+}*/
 
 //const int colonnePivot = TrouverColonnePivot(tab,Pivot);
 
