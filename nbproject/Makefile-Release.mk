@@ -62,6 +62,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpl.exe-master.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/simpl.exe-master ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/AdapterLigne.o: AdapterLigne.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AdapterLigne.o AdapterLigne.cpp
+
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
