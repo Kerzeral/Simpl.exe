@@ -4,8 +4,8 @@
 
 using namespace std;
 
-const int tailleX = 3; // = Nombre de composants différents nécessaires.
-const int tailleY = 2; // = Nombre de produits à prendre en compte.
+const int tailleX = 4; // = Nombre de composants différents nécessaires.
+const int tailleY = 3; // = Nombre de produits à prendre en compte.
 
 double RetourneTableau()
 {
@@ -14,7 +14,25 @@ double RetourneTableau()
     {
         for(int j = 0;j<tailleY;j++)
         {
-            cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
+            if(j!=tailleY-1 && i!=tailleX-1)
+            {
+                cout<<"Entrez la quantite de composant "<<i+1<<" pour le produit "<<j+1<<endl;
+                cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
+            }
+            else if(i==tailleX-1 && j!=tailleY-1)
+            {
+                cout<<"Entrez le prix du produit "<<j+1<<endl;
+                cin>>*(tab+i*tailleY+j);
+            }
+            else if(j==tailleY-1 && i==tailleX-1)
+            {
+                *(tab+i*tailleY+j)=0;
+            }       
+            else
+            {
+                cout<<"Entrez le stock de composant "<<i+1<<endl;
+                cin>>*(tab+i*tailleY+j);
+            }
         }   
     }
     return (*tab);
