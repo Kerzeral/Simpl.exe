@@ -20,9 +20,8 @@ void Affiche(double *tab)
     cout<<endl;
 }
 
-double RetourneTableau()
+void RemplirTableau(double *tab)
 {
-    double *tab = new double[tailleX*tailleY];
     int a = (tailleY/2)-1;
     for(int i = 0;i<tailleX;i++)
     {
@@ -61,8 +60,6 @@ double RetourneTableau()
         }  
         a++;
     }
-     Affiche(tab);
-    return (*tab);
 }
 
 
@@ -128,8 +125,9 @@ void adapterLigne(double *tab, int colonnePivot, int lignePivot)
 
 int main(int argc, char** argv) 
 {
-    double tab = RetourneTableau();
-   
+    double *tab = new double[tailleX*tailleY];
+    RemplirTableau(tab);
+    Affiche(tab);
     
     return 0;
 }
