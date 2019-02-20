@@ -18,8 +18,8 @@ return bool;
 int main() 
 {
 
-    const int taillex = requete(x); //requete donnees SQL Nombre lignes
-    const int tailley = requette(y); //requete donnees SQL Nombre colonnes
+    const int taillex = requetex(); //requete donnees SQL Nombre lignes
+    const int tailley = requetey(); //requete donnees SQL Nombre colonnes
     double tableau[tailley][taillex] = {{...}, ..., {...}}; //requete pour remplir tab  
     double pivot = DefinirPivot(tableau); //Trouver le pivot dans le tableau
     int NumeroLignePivot = TrouverLignePivot(tableau, pivot, taillex, tailley); // On trouve la ligne du Pivot
