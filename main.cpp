@@ -1,6 +1,7 @@
 #include <cstdlib>
-
 using namespace std;
+
+//by steven
 
 bool VerifCoef(double Tableau, int tailleX, int tailleY) // Tableau modifié par les calculs (max/min)
 {
@@ -18,15 +19,26 @@ return bool;
 int main() 
 {
 
+    //Frans
     const int taillex = requetex(); //requete donnees SQL Nombre lignes
     const int tailley = requetey(); //requete donnees SQL Nombre colonnes
-    double tableau[tailley][taillex] = {{...}, ..., {...}}; //requete pour remplir tab  
+    
+    
+    double tableau[tailley][taillex] = {{...}, ..., {...}}; //requete pour remplir tab 
+    
+    //Lamine
     double pivot = DefinirPivot(tableau); //Trouver le pivot dans le tableau
+   
+    //Leina
     int NumeroLignePivot = TrouverLignePivot(tableau, pivot, taillex, tailley); // On trouve la ligne du Pivot
     double LignePivot = ExtractionLigne(tableau, NumeroLignePivot); // on extrait la ligne du pivot
     double ReductionPivot = ReductionLigne(LignePivot); // on reduit la ligne du pivot
     RemplacerLigne(tableau, ReductionPivot, taillex, tailley); // on remet la ligne reduite du pivot dans le tableau
     
+    //Victoria
+    double colonne = DefinirColonne(tableau, pivot);
+    
+    //hugo
     fonctionColonneHugo(); // on trouve un ratio pour reduire les lignes et on le fait
     /*
  	
@@ -46,14 +58,16 @@ int main()
       .  . . |  _____..---.._/ _____
 ~---~~~~----~~~~             ~~
  */
-    
+   
+    //Steven
     bool test = false; //on cree une variable booleene de test
     do{
        test = VerifCoef(tableau, taillex, tailley); //on verifie les coeficient 
        //pour etre certain qu'aucune reduction suplementaire n'est possible
        (test == false) ? fonctionColonneHugo(); // si d'autres reductions sont possible on readapte les colonnes
      }while(test == false);
-    
+     
+     //Frans
      EnvoieRsultatVersSqL(); // on envoie le resultat vers le SqL
 
    
