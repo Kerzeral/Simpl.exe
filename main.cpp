@@ -2,8 +2,19 @@
 
 using namespace std;
 
-/*
- */
+bool VerifCoef(double Tableau, int tailleX, int tailleY) // Tableau modifié par les calculs (max/min)
+{
+int i = nb_parametres; // i=nb de paramètres, exemple : Houblon, malt, orge = 3 paramètres
+int j = nb_produits; // j=nb de produits, exemple : blonde, brune = 2 produits
+
+for(Tableau[tailleX][i];i<=j;i++)
+	{if i<=0{bool=true; //si la valeur de la case est égale ou inférieure à 0
+			continue;} //jusque-là tout va bien, alors on continue
+	else{bool=false; //si la valeur est strictement supérieure à 0
+			break;}} // PAF, on sort de la boucle
+return bool;
+}
+
 int main() 
 {
 
