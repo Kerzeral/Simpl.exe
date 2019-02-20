@@ -1,38 +1,45 @@
 #include <cstdlib>
 #include <iostream>
+/*#include <mysql_connection.h>
+
+#include <cppconn/driver.h>
+#include <cppconn/exception.h>
+#include <cppconn/resultset.h>
+#include <cppconn/statement.h>*/
 //#include "AdapterLigne.cpp"
 
 using namespace std;
-
-const int tailleX = 3; // = Nombre de composants différents nécessaires + 1 (Prix).
-const int tailleY = 5; // = Nombre de produits à prendre en compte + 1 par e + 1 (stocks).
+const int nbProduits = 2;
+const int nbComposants = 2;
+const int tailleX = nbComposants+1; // = Nombre de composants différents nécessaires + 1 (Prix).
+const int tailleY = nbProduits+nbComposants+1; // = Nombre de produits à prendre en compte + nombre de composants + 1 (stocks).
 
 void Affiche(double *tab)
 {
     for(int i=0;i<tailleX;i++)
     {
-    for(int j=0;j<tailleY;j++)
-    {
-     cout<<*(tab+i*tailleY+j)<<" ";
-    }
-    cout<<endl;
+        for(int j=0;j<tailleY;j++)
+        {
+            cout<<*(tab+i*tailleY+j)<<" ";
+        }
+        cout<<endl;
     }
     cout<<endl;
 }
 
 void RemplirTableau(double *tab)
 {
-    int a = (tailleY/2)-1;
+    int a = nbProduits;
     for(int i = 0;i<tailleX;i++)
     {
         for(int j = 0;j<tailleY;j++)
         {
-            if(j<(tailleY/2) && i!=tailleX-1)
+            if(j<nbProduits && i!=tailleX-1)
             {
                 cout<<"Entrez la quantite de composant "<<i+1<<" pour le produit "<<j+1<<endl;
                 cin>>*(tab+i*tailleY+j); // = Qte de composant j pour le produit i.
             }
-            else if(j>=(tailleY/2)-1 && i!=tailleX-1)
+            else if(j>=nbProduits && i!=tailleX-1)
             {
                 if(j==tailleY-1)
                 {
@@ -48,12 +55,12 @@ void RemplirTableau(double *tab)
                     *(tab+i*tailleY+j)=0;
                 }
             }
-            else if(i==tailleX-1 && j<(tailleY/2))
+            else if(i==tailleX-1 && j<nbProduits)
             {
                 cout<<"Entrez le prix du produit "<<j+1<<endl;
                 cin>>*(tab+i*tailleY+j);
             }
-            else if(j>(tailleY/2)-1 && i==tailleX-1)
+            else if(j>nbProduits && i==tailleX-1)
             {
                 *(tab+i*tailleY+j)=0;
             }       
@@ -83,6 +90,19 @@ int CoeffMax(double *tab) // Permet de trouver la colonne du pivot
    return ColonnePivot; 
 }
 
+void definirRatio (double *tab,double *ratio,int ColonnePivot) //fonction qui permet de trouver le ratio en divisant la constante des contraintes par le coeff pivot
+{
+    for(int i=0; i<tailleX; i++)
+    {
+        for (int j=0;j<tailleY; j++)
+        {
+            if(j==tailleY-1)
+            {
+                *(ratio+i)=*(tab+i*tailleY+j)/(*(tab+i*tailleY+ColonnePivot));
+            }
+        }   
+    }
+}
 /*int TrouverColonnePivot(double *tab,double Pivot)
 {
     for(int i = 0;i<tailleX;i++)
@@ -146,7 +166,9 @@ int main(int argc, char** argv)
     double *tab = new double[tailleX*tailleY];
     RemplirTableau(tab);
     Affiche(tab);
-    int ColonnePivot = CoeffMax(tab);
+    int colonnePivot = CoeffMax(tab);
+    double *ratio = new double[tailleX];
+    
     delete tab;
     return 0;
 }
