@@ -11,7 +11,7 @@ int main()
     const int tailley = requette(y); //requete donnees SQL Nombre colonnes
     double tableau[tailley][taillex] = {{...}, ..., {...}}; //requete pour remplir tab  
     double pivot = DefinirPivot(tableau); //Trouver le pivot dans le tableau
-    int NumeroLignePivot = TrouverLigne(tableau, pivot, taillex, tailley); // On trouve la ligne du Pivot
+    int NumeroLignePivot = TrouverLignePivot(tableau, pivot, taillex, tailley); // On trouve la ligne du Pivot
     double LignePivot = ExtractionLigne(tableau, NumeroLignePivot); // on extrait la ligne du pivot
     double ReductionPivot = ReductionLigne(LignePivot); // on reduit la ligne du pivot
     RemplacerLigne(tableau, ReductionPivot, taillex, tailley); // on remet la ligne reduite du pivot dans le tableau
