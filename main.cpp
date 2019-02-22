@@ -1,14 +1,14 @@
 #include <cstdlib>
 #include <iostream>
-/*#include <mysql_connection.h>
+//#include <mysql_connection.h>
 
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>*/
-//#include "AdapterLigne.cpp"
+//#include <cppconn/driver.h>
+//#include <cppconn/exception.h>
+//#include <cppconn/resultset.h>
+//#include <cppconn/statement.h>
 
 using namespace std;
+const int typeOperation = 1;
 const int nbProduits = 2;
 const int nbComposants = 2;
 const int tailleX = nbComposants+1; // = Nombre de composants différents nécessaires + 1 (Prix).
@@ -27,7 +27,7 @@ void Affiche(double *tab)
     cout<<endl;
 }
 
-void RemplirTableau(double *tab)
+double* RemplirTableau(double *tab)
 {
     int a = nbProduits;
     for(int i = 0;i<tailleX;i++)
@@ -67,8 +67,8 @@ void RemplirTableau(double *tab)
         }  
         a++;
     }
+    return tab;
 }
-
 
 int CoeffMax(double *tab) // Permet de trouver la colonne du pivot 
 {
@@ -78,7 +78,7 @@ int CoeffMax(double *tab) // Permet de trouver la colonne du pivot
   
   for(i=0; i<tailleX; i++)
   {
-      for(j=0;i<tailleY; j++)
+      for(j=0;j<tailleY-1; j++)
       {
           if(*(tab+i*tailleY+j) > Coeff)
           {
@@ -90,53 +90,39 @@ int CoeffMax(double *tab) // Permet de trouver la colonne du pivot
    return ColonnePivot; 
 }
 
-void definirRatio (double *tab,double *ratio,int ColonnePivot) //fonction qui permet de trouver le ratio en divisant la constante des contraintes par le coeff pivot
+int definirRatio (double *tab,double *ratio,int colonnePivot) //fonction qui calcule les ratios et qui retourne la ligne du pivot en fonction des ratios
 {
+    double min=999999;
+    int LignePivot;
     for(int i=0; i<tailleX; i++)
     {
         for (int j=0;j<tailleY; j++)
         {
-            if(j==tailleY-1)
+            if(j==tailleY-1 && i!=tailleX-1)
             {
-                *(ratio+i)=*(tab+i*tailleY+j)/(*(tab+i*tailleY+ColonnePivot));
+                *(ratio+i)=*(tab+i*tailleY+j)/(*(tab+i*tailleY+colonnePivot));
+                if(*(ratio+i)<min)
+                {
+                    min=*(ratio+i);
+                    LignePivot=i;
+                }
             }
         }   
     }
+    return LignePivot;
 }
-/*int TrouverColonnePivot(double *tab,double Pivot)
-{
-    for(int i = 0;i<tailleX;i++)
-    {
-        for(int j = 0;j<tailleY;j++)
-        {
-            if(*(tab+i*tailleY+j) = Pivot)
-            {
-                return j;
-            }
-        }
-    }
-}*/
 
-//const int colonnePivot = TrouverColonnePivot(tab,Pivot);
-
-int TrouverLignePivot(double *tab,double Pivot)
-{
-    for(int i = 0;i<tailleX;i++)
+double* ReductionLigne(double *tab, int lignePivot, int colonnePivot) //fonction qui divise toute la ligne pivot par le pivot
+{    
+    double pivot=*(tab+lignePivot*tailleY+colonnePivot);
+    for(int j=0;j<tailleY;j++)
     {
-        for(int j = 0;j<tailleY;j++)
-        {
-            if(*(tab+i*tailleY+j)= Pivot)
-            {
-                return j;
-            }
-        }
+      *(tab+lignePivot*tailleY+j)=*(tab+lignePivot*tailleY+j)/pivot;
     }
+    return tab;
 }
- 
-//const int lignePivot = TrouverLignePivot(tab,Pivot);
 
-
-void adapterLigne(double *tab, int colonnePivot, int lignePivot)
+double* adapterLigne(double *tab, int lignePivot, int colonnePivot) //fonction qui adapte les lignes en fonction de la ligne pivot
 {
     for(int i = 0;i<tailleX;i++)
     {
@@ -149,6 +135,47 @@ void adapterLigne(double *tab, int colonnePivot, int lignePivot)
             }
         }
     }
+    return tab;
+}
+
+
+bool VerifCoef(double *tab) //fonction qui verifie la signe des coeffs
+{
+    for(int j=0;j<tailleY;j++)
+    {
+        if (*(tab+(tailleX-1)*tailleY+j)>0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+int main(int argc, char** argv) 
+{
+    double *tab = new double[tailleX*tailleY];
+    double *ratio = new double[tailleX];
+    tab = RemplirTableau(tab);
+    Affiche(tab);
+    int colonnePivot;
+    int lignePivot;
+    
+    do
+    {
+        colonnePivot = CoeffMax(tab);
+        //cout<<colonnePivot<<endl;
+        lignePivot = definirRatio(tab, ratio, colonnePivot);
+        //cout<<lignePivot<<endl;
+        tab = ReductionLigne(tab,lignePivot,colonnePivot);
+        //Affiche(tab);
+        tab = adapterLigne(tab,lignePivot,colonnePivot);
+        //Affiche(tab);
+        //VerifCoef(tab);
+    }
+    while(VerifCoef(tab)==false);
+    Affiche(tab);
+    return 0;
 }
 
 
@@ -158,17 +185,3 @@ void adapterLigne(double *tab, int colonnePivot, int lignePivot)
  *      -Produits(NomProduit, PrixProduit, QteChaqueComposant, QteProduitsCrées)
  *      -Composants (NomComposant, PrixComposant, QteComposantDispo, QteComposantRestants)
 */
-
-
-
-int main(int argc, char** argv) 
-{
-    double *tab = new double[tailleX*tailleY];
-    RemplirTableau(tab);
-    Affiche(tab);
-    int colonnePivot = CoeffMax(tab);
-    double *ratio = new double[tailleX];
-    
-    delete tab;
-    return 0;
-}
